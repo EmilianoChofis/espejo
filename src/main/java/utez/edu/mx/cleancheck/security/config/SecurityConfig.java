@@ -26,11 +26,8 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
 
     private final String[] whiteList = {
-            "/api-az/user/**",
-            "/api-az/role/**",
-            "/api-az/auth/**",
-            "/api-az/area/**",
-            "/api-az/image/loadFile/**",
+            "/api-clean/auth/signIn",
+            "/api-clean/auth/create"
     };
 
     @Bean

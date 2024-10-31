@@ -13,7 +13,7 @@ import utez.edu.mx.cleancheck.service.auth.AuthService;
 import utez.edu.mx.cleancheck.utils.ApiResponse;
 
 @RestController
-@RequestMapping("/api-cleancheck/auth")
+@RequestMapping("/api-clean/auth")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 

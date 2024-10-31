@@ -23,13 +23,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<User> optionalUser = service.findByEmail(email);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            return UserDetailsImpl.build(user);
-        } else {
-            throw new UsernameNotFoundException("UserNotFound");
-        }
+        Optional<User> foundUser = service.findByEmail(email);
+        if (foundUser.isPresent())
+            return UserDetailsImpl.build(foundUser.get());
+        throw new UsernameNotFoundException("UserNotFound");
     }
 
 }

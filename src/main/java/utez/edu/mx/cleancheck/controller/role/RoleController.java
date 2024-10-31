@@ -11,7 +11,7 @@ import utez.edu.mx.cleancheck.service.role.RoleService;
 import utez.edu.mx.cleancheck.utils.ApiResponse;
 
 @RestController
-@RequestMapping("/api-cleancheck/role")
+@RequestMapping("/api-clean/role")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 

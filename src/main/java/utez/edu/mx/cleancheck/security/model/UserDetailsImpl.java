@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class UserDetailsImpl implements UserDetails {
 
-    private String email;
+    private String username;
 
     private String password;
 
@@ -44,7 +44,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override
@@ -64,6 +64,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }
