@@ -51,6 +51,9 @@ public class AuthService {
     @Value("${receptionist.name}")
     private String receptionistName;
 
+    @Value("${housekeeper.name}")
+    private String housekeeperName;
+
     private User userCreate(UserDto user, Role foundRole, PasswordEncoder passwordEncoder, UserRepository userRepository) {
         User newUser = new User();
         String idUser = UUID.randomUUID().toString();
@@ -118,6 +121,25 @@ public class AuthService {
         User saveUser = userCreate(user, clientRole, passwordEncoder, userRepository);
         return new ApiResponse<>(
                 saveUser, false, HttpStatus.OK.value(), "Receptionista registrado correctamente"
+        );
+    }
+
+    @Transactional(rollbackFor = {SQLException.class})
+    public ApiResponse<User> createHousekeeper(UserDto user) {
+        Role clientRole = roleRepository.findByName(housekeeperName).orElse(null);
+        if (clientRole == null)
+            return new ApiResponse<>(
+                    null, true, HttpStatus.BAD_REQUEST.value(), "Rol no encontrado"
+            );
+        User foundUser = userRepository.findByEmail(user.getEmail()).orElse(null);
+        if (foundUser != null)
+            return new ApiResponse<>(
+                    null, true, HttpStatus.BAD_REQUEST.value(), "Conserje ya registrado"
+            );
+
+        User saveUser = userCreate(user, clientRole, passwordEncoder, userRepository);
+        return new ApiResponse<>(
+                saveUser, false, HttpStatus.OK.value(), "Conserje registrado correctamente"
         );
     }
 }

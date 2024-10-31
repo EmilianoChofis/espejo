@@ -24,7 +24,7 @@ public class Room {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    private RoomState state;
+    private RoomState status;
 
     @ManyToOne
     @JoinColumn(name = "floor_id")

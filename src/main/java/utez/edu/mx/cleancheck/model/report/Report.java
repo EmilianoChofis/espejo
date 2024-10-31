@@ -27,6 +27,9 @@ public class Report {
     @Column(name = "created_at", insertable = false, columnDefinition = "TIMESTAMP DEFAULT NOW()")
     private LocalDateTime createdAt;
 
+    @Enumerated(EnumType.STRING)
+    private ReportState status;
+
     @OneToMany(mappedBy = "reportId", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Image> images;
