@@ -21,6 +21,24 @@ public class AuthController {
 
     private final AuthService service;
 
+    @PostMapping("/createManager")
+    public ResponseEntity<ApiResponse<User>> createManager (@Valid @RequestBody UserDto user){
+        try {
+            ApiResponse<User> response = service.createManager(user);
+            HttpStatus statusCode = response.isError() ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
+            return new ResponseEntity<>(
+                    response,
+                    statusCode
+            );
+        } catch (Exception e) {
+            return new ResponseEntity<>(
+                    new ApiResponse<>(
+                            null, true, HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
     @PostMapping("/createReceptionist")
     public ResponseEntity<ApiResponse<User>> createReceptionist (@Valid @RequestBody UserDto user){
         try {
@@ -39,10 +57,10 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/createHousekeeper")
-    public ResponseEntity<ApiResponse<User>> createHousekeeper (@Valid @RequestBody UserDto user){
+    @PostMapping("/createMaid")
+    public ResponseEntity<ApiResponse<User>> createMaid (@Valid @RequestBody UserDto user){
         try {
-            ApiResponse<User> response = service.createHousekeeper(user);
+            ApiResponse<User> response = service.createMaid(user);
             HttpStatus statusCode = response.isError() ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
             return new ResponseEntity<>(
                     response,

@@ -51,8 +51,11 @@ public class AuthService {
     @Value("${receptionist.name}")
     private String receptionistName;
 
-    @Value("${housekeeper.name}")
-    private String housekeeperName;
+    @Value("${maid.name}")
+    private String maidName;
+
+    @Value("${manager.name}")
+    private String managerName;
 
     private User userCreate(UserDto user, Role foundRole, PasswordEncoder passwordEncoder, UserRepository userRepository) {
         User newUser = new User();
@@ -125,8 +128,8 @@ public class AuthService {
     }
 
     @Transactional(rollbackFor = {SQLException.class})
-    public ApiResponse<User> createHousekeeper(UserDto user) {
-        Role clientRole = roleRepository.findByName(housekeeperName).orElse(null);
+    public ApiResponse<User> createMaid(UserDto user) {
+        Role clientRole = roleRepository.findByName(maidName).orElse(null);
         if (clientRole == null)
             return new ApiResponse<>(
                     null, true, HttpStatus.BAD_REQUEST.value(), "Rol no encontrado"
@@ -134,12 +137,32 @@ public class AuthService {
         User foundUser = userRepository.findByEmail(user.getEmail()).orElse(null);
         if (foundUser != null)
             return new ApiResponse<>(
-                    null, true, HttpStatus.BAD_REQUEST.value(), "Conserje ya registrado"
+                    null, true, HttpStatus.BAD_REQUEST.value(), "Mucama ya registrado"
             );
 
         User saveUser = userCreate(user, clientRole, passwordEncoder, userRepository);
         return new ApiResponse<>(
-                saveUser, false, HttpStatus.OK.value(), "Conserje registrado correctamente"
+                saveUser, false, HttpStatus.OK.value(), "Mucama registrado correctamente"
+        );
+    }
+
+
+    @Transactional(rollbackFor = {SQLException.class})
+    public ApiResponse<User> createManager(UserDto user) {
+        Role clientRole = roleRepository.findByName(managerName).orElse(null);
+        if (clientRole == null)
+            return new ApiResponse<>(
+                    null, true, HttpStatus.BAD_REQUEST.value(), "Rol no encontrado"
+            );
+        User foundUser = userRepository.findByEmail(user.getEmail()).orElse(null);
+        if (foundUser != null)
+            return new ApiResponse<>(
+                    null, true, HttpStatus.BAD_REQUEST.value(), "Gerente ya registrado"
+            );
+
+        User saveUser = userCreate(user, clientRole, passwordEncoder, userRepository);
+        return new ApiResponse<>(
+                saveUser, false, HttpStatus.OK.value(), "Gerente registrado correctamente"
         );
     }
 }
