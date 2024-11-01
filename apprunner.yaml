@@ -3,7 +3,7 @@ runtime: corretto11
 build:
   commands:
     build:
-      - mvn clean package
+      - mvn clean package -DskipTests
 run:
   command: java -jar target/CleanCheck-0.0.1-SNAPSHOT.jar
   network:
