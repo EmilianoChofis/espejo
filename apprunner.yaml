@@ -5,6 +5,6 @@ build:
     build:
       - mvn clean package -DskipTests
 run:
-  command: java -jar target/CleanCheck-0.0.1-SNAPSHOT.jar
+  command: java -Xms256m -jar target/CleanCheck-0.0.1-SNAPSHOT.jar .
   network:
     port: 8080
